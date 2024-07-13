@@ -13,7 +13,7 @@ import HomeScreen from '@/Components/HomeScreen';
 import SignupScreen from '@/Components/Signup';
 import Login from '@/Components/Login';
 
-// Initialize Firebase (replace with your Firebase project credentials)
+/*// Initialize Firebase (replace with your Firebase project credentials)
 const firebaseConfig = {
   apiKey: 'YOUR_API_KEY',
   authDomain: 'YOUR_AUTH_DOMAIN',
@@ -28,7 +28,7 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 } else {
   firebase.app(); // if already initialized, use that one
-}
+}*/
 
 // Create Redux store
 const store = createStore(rootReducer, applyMiddleware(thunk));
@@ -39,7 +39,7 @@ const Stack = createStackNavigator();
 const index = () => {
   useEffect(() => {
     // Listener to check if user is authenticated
-    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user: { uid: any; }) => {
       if (user) {
         // User is signed in.
         console.log('User is signed in:', user.uid);
