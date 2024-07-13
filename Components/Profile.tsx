@@ -1,21 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
 import { signOut } from '../redux/actions/authActions';
+import { fetchUserProfileAction } from '../redux/actions/profileActions';
 
 const Profile = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
+  const userProfile = useSelector((state: RootState) => state.profile.userProfile);
+
+  useEffect(() => {
+    if (user.uid) {
+      dispatch(fetchUserProfileAction(user.uid)); // Fetch user profile when user is available
+    }
+  }, [dispatch, user]);
 
   const handleSignOut = () => {
-    dispatch(signOut()); // Redux action to sign out
+    dispatch(signOut()); // Dispatch signOut action from authActions
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Profile</Text>
-      <Text style={styles.userInfo}>Name: {user.name}</Text>
+      <Text style={styles.userInfo}>Name: {userProfile.name}</Text>
       <Text style={styles.userInfo}>Email: {user.email}</Text>
       <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
         <Text style={styles.signOutButtonText}>Sign Out</Text>

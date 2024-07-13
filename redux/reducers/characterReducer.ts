@@ -1,5 +1,3 @@
-// reducers/characterReducer.ts
-
 interface Character {
     characterId: number;
     fullName: string;

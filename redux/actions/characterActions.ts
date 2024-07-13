@@ -1,5 +1,3 @@
-// actions/characterActions.ts
-
 import { Dispatch } from 'redux';
 import axios from 'axios';
 
@@ -14,6 +12,6 @@ export const fetchCharacters = () => async (dispatch: Dispatch) => {
     dispatch(setCharacters(response.data));
   } catch (error) {
     console.error('Error fetching characters:', error);
-    // Handle error (e.g., show error message)
+    throw error;
   }
 };

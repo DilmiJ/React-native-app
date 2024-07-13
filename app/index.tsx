@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import rootReducer from './src/redux/reducers'; // Adjust the path as per your project structure
+import rootReducer from'../redux/reducers/rootReducer'; // Adjust the path as per your project structure
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';

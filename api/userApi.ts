@@ -1,13 +1,16 @@
-// api/userApi.ts
-
-import axios from 'axios'; // Example: using Axios for HTTP requests
+import firebase from '../services/firebase';
 
 export const fetchUserProfile = async (userId: string) => {
   try {
-    const response = await axios.get(`https://api.example.com/user/${userId}`);
-    return response.data;
+    const userRef = firebase.firestore().collection('users').doc(userId);
+    const snapshot = await userRef.get();
+    if (snapshot.exists) {
+      return snapshot.data();
+    } else {
+      throw new Error('User profile not found');
+    }
   } catch (error) {
     console.error('Error fetching user profile:', error);
-    throw error; // Propagate the error upwards for handling in action
+    throw error;
   }
 };
