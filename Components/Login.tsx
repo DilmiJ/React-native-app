@@ -1,78 +1,50 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Login from '../Components/Login'; // Import your login page component
+// import HomeScreen from '../Components/HomeScreen'; // Import your home screen component
 
-const Login = () => {
-  const [email, setEmail] = useState('example@app.com');
-  const [password, setPassword] = useState('');
+const Stack = createStackNavigator();
 
-  const handleSignIn = () => {
-    // Add your sign in logic here
-    console.log('You have successfully signed in!');
-  };
+const Index = () => {
+  const [loading, setLoading] = useState(true);
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>My App</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        secureTextEntry={true}
-      />
-      <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-        <Text style={styles.buttonText}>Sign In</Text>
-      </TouchableOpacity>
-      <Text style={styles.forgotPassword}>Forgot Password? <Text style={styles.link}>Click Here</Text></Text>
-      <Text style={styles.noAccount}>Don't have an account? <Text style={styles.link}>Sign Up</Text></Text>
-    </View>
-  );
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000); // wait for 2 seconds
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>My App</Text>
+      </View>
+    );
+  } else {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen name="Login" component={Login} />
+          {/* Add more screens as needed */}
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#222',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
     fontSize: 24,
-    marginBottom: 20,
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-  },
-  button: {
-    backgroundColor: '#4CAF50',
-    padding: 10,
-    borderRadius: 5,
-  },
-  buttonText: {
     color: '#fff',
-    fontSize: 16,
-  },
-  forgotPassword: {
-    fontSize: 16,
-    marginTop: 20,
-  },
-  noAccount: {
-    fontSize: 16,
-    marginTop: 10,
-  },
-  link: {
-    textDecorationLine: 'underline',
-    color: 'blue',
   },
 });
 
-export default Login;
+export default Index;

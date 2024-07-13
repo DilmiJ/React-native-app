@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Login from '../Components/Login'; // Import your login page component
+import MainStackNavigator from '../Navigation/MainStackNavigator';
+import { createStackNavigator } from '@react-navigation/stack'
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator(); // Create a stack navigator instance
 
 const index = () => {
   const [loading, setLoading] = useState(true);
@@ -12,24 +12,24 @@ const index = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 2000); // wait for 2 seconds
+    }, 2000); // Simulating a loading screen for 2 seconds
   }, []);
 
   if (loading) {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>My App</Text>
+        <Text style={styles.title}>Loading...</Text>
       </View>
     );
-  } else {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Login" component={Login} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
   }
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="MainStack" component={MainStackNavigator} options={{ headerMode: 'none' }} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 };
 
 const styles = StyleSheet.create({
