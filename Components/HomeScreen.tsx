@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { fetchCharacters } from '../redux/actions/characterActions';
@@ -7,10 +7,19 @@ import { fetchCharacters } from '../redux/actions/characterActions';
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const characters = useSelector((state: RootState) => state.characters.characters);
+  const isLoading = useSelector((state: RootState) => state.characters.isLoading);
 
   useEffect(() => {
     dispatch(fetchCharacters()); // Fetch characters on component mount
   }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -34,6 +43,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     fontSize: 24,

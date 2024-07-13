@@ -3,13 +3,17 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import { useDispatch } from 'react-redux';
 import { signUp } from '../redux/actions/authActions';
 
-const SignupScreen = () => {
+const Signup = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSignUp = () => {
+    if (password !== confirmPassword) {
+      alert("Passwords don't match");
+      return;
+    }
     dispatch(signUp(email, password)); // Redux action to sign up
   };
 
@@ -74,4 +78,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignupScreen;
+export default Signup;
