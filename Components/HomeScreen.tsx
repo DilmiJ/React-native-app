@@ -1,22 +1,15 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { setCharacters } from '../redux/actions/characterActions';
+import { fetchCharacters } from '../redux/actions/characterActions';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const characters = useSelector((state: RootState) => state.characters.characters);
 
   useEffect(() => {
-    axios.get('https://thronesapi.com/api/v2/Characters')
-      .then(response => {
-        dispatch(setCharacters(response.data)); // Redux action to set characters in state
-      })
-      .catch(error => {
-        console.error('Error fetching characters:', error);
-      });
+    dispatch(fetchCharacters()); // Fetch characters on component mount
   }, []);
 
   return (
