@@ -1,10 +1,8 @@
+// index.tsx
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import MainStackNavigator from '../Navigation/MainStackNavigator';
-import { createStackNavigator } from '@react-navigation/stack'
-
-const Stack = createStackNavigator(); // Create a stack navigator instance
 
 const index = () => {
   const [loading, setLoading] = useState(true);
@@ -25,9 +23,7 @@ const index = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="MainStack" component={MainStackNavigator} options={{ headerMode: 'none' }} />
-      </Stack.Navigator>
+      <MainStackNavigator />
     </NavigationContainer>
   );
 };
@@ -35,9 +31,9 @@ const index = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#222',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#222',
   },
   title: {
     fontSize: 24,
